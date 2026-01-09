@@ -32,4 +32,16 @@ class UnitModel {
       'isBase': isBase,
     };
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UnitModel &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          symbol == other.symbol &&
+          category == other.category;
+
+  @override
+  int get hashCode => name.hashCode ^ symbol.hashCode ^ category.hashCode;
 }

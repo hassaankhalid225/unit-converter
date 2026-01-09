@@ -10,7 +10,8 @@ class ConversionConstants {
       icon: Icons.straighten,
       parentCategory: 'BASIC',
       units: [
-        UnitModel(name: 'Micrometer', symbol: 'μm', toBaseMultiplier: 0.000001, category: 'Length'),
+        UnitModel(name: 'Nanometer', symbol: 'nm', toBaseMultiplier: 1e-9, category: 'Length'),
+        UnitModel(name: 'Micrometer', symbol: 'μm', toBaseMultiplier: 1e-6, category: 'Length'),
         UnitModel(name: 'Millimeter', symbol: 'mm', toBaseMultiplier: 0.001, category: 'Length'),
         UnitModel(name: 'Centimeter', symbol: 'cm', toBaseMultiplier: 0.01, category: 'Length'),
         UnitModel(name: 'Decimeter', symbol: 'dm', toBaseMultiplier: 0.1, category: 'Length'),
@@ -28,15 +29,16 @@ class ConversionConstants {
       icon: Icons.grid_on,
       parentCategory: 'BASIC',
       units: [
-        UnitModel(name: 'Square Millimeter', symbol: 'mm²', toBaseMultiplier: 0.000001, category: 'Area'),
-        UnitModel(name: 'Square Centimeter', symbol: 'cm²', toBaseMultiplier: 0.0001, category: 'Area'),
+        UnitModel(name: 'Square Millimeter', symbol: 'mm²', toBaseMultiplier: 1e-6, category: 'Area'),
+        UnitModel(name: 'Square Centimeter', symbol: 'cm²', toBaseMultiplier: 1e-4, category: 'Area'),
         UnitModel(name: 'Square Meter', symbol: 'm²', toBaseMultiplier: 1.0, category: 'Area', isBase: true),
-        UnitModel(name: 'Square Kilometer', symbol: 'km²', toBaseMultiplier: 1000000.0, category: 'Area'),
+        UnitModel(name: 'Square Kilometer', symbol: 'km²', toBaseMultiplier: 1e6, category: 'Area'),
         UnitModel(name: 'Square Inch', symbol: 'in²', toBaseMultiplier: 0.00064516, category: 'Area'),
         UnitModel(name: 'Square Foot', symbol: 'ft²', toBaseMultiplier: 0.09290304, category: 'Area'),
         UnitModel(name: 'Square Yard', symbol: 'yd²', toBaseMultiplier: 0.83612736, category: 'Area'),
         UnitModel(name: 'Acre', symbol: 'ac', toBaseMultiplier: 4046.8564224, category: 'Area'),
         UnitModel(name: 'Hectare', symbol: 'ha', toBaseMultiplier: 10000.0, category: 'Area'),
+        UnitModel(name: 'Square Mile', symbol: 'mi²', toBaseMultiplier: 2589988.110336, category: 'Area'),
       ],
     ),
     UnitCategory(
@@ -44,6 +46,7 @@ class ConversionConstants {
       icon: Icons.fitness_center,
       parentCategory: 'BASIC',
       units: [
+        UnitModel(name: 'Microgram', symbol: 'μg', toBaseMultiplier: 1e-6, category: 'Weight'),
         UnitModel(name: 'Milligram', symbol: 'mg', toBaseMultiplier: 0.001, category: 'Weight'),
         UnitModel(name: 'Gram', symbol: 'g', toBaseMultiplier: 1.0, category: 'Weight', isBase: true),
         UnitModel(name: 'Kilogram', symbol: 'kg', toBaseMultiplier: 1000.0, category: 'Weight'),
@@ -51,6 +54,8 @@ class ConversionConstants {
         UnitModel(name: 'Ounce', symbol: 'oz', toBaseMultiplier: 28.349523125, category: 'Weight'),
         UnitModel(name: 'Pound', symbol: 'lb', toBaseMultiplier: 453.59237, category: 'Weight'),
         UnitModel(name: 'Stone', symbol: 'st', toBaseMultiplier: 6350.29318, category: 'Weight'),
+        UnitModel(name: 'Carat', symbol: 'ct', toBaseMultiplier: 0.2, category: 'Weight'),
+        UnitModel(name: 'Grain', symbol: 'gr', toBaseMultiplier: 0.0647989, category: 'Weight'),
       ],
     ),
     UnitCategory(
@@ -59,15 +64,36 @@ class ConversionConstants {
       parentCategory: 'BASIC',
       units: [
         UnitModel(name: 'Milliliter', symbol: 'ml', toBaseMultiplier: 0.001, category: 'Volume'),
+        UnitModel(name: 'Centiliter', symbol: 'cl', toBaseMultiplier: 0.01, category: 'Volume'),
+        UnitModel(name: 'Deciliter', symbol: 'dl', toBaseMultiplier: 0.1, category: 'Volume'),
         UnitModel(name: 'Liter', symbol: 'l', toBaseMultiplier: 1.0, category: 'Volume', isBase: true),
         UnitModel(name: 'Cubic Meter', symbol: 'm³', toBaseMultiplier: 1000.0, category: 'Volume'),
         UnitModel(name: 'Cubic Inch', symbol: 'in³', toBaseMultiplier: 0.016387064, category: 'Volume'),
         UnitModel(name: 'Cubic Foot', symbol: 'ft³', toBaseMultiplier: 28.316846592, category: 'Volume'),
-        UnitModel(name: 'Gallon (US)', symbol: 'gal', toBaseMultiplier: 3.785411784, category: 'Volume'),
+        UnitModel(name: 'Cubic Yard', symbol: 'yd³', toBaseMultiplier: 764.554857984, category: 'Volume'),
+        UnitModel(name: 'Gallon (US)', symbol: 'gal(US)', toBaseMultiplier: 3.785411784, category: 'Volume'),
+        UnitModel(name: 'Gallon (UK)', symbol: 'gal(UK)', toBaseMultiplier: 4.54609, category: 'Volume'),
+        UnitModel(name: 'Barrel (Oil)', symbol: 'bbl', toBaseMultiplier: 158.987294928, category: 'Volume'),
+        UnitModel(name: 'Quart (US)', symbol: 'qt', toBaseMultiplier: 0.946352946, category: 'Volume'),
       ],
     ),
 
     // --- LIVING ---
+    UnitCategory(
+      name: 'Currency',
+      icon: Icons.attach_money,
+      parentCategory: 'LIVING',
+      units: [
+        UnitModel(name: 'USD', symbol: '\$', toBaseMultiplier: 1.0, category: 'Currency', isBase: true),
+        UnitModel(name: 'EUR', symbol: '€', toBaseMultiplier: 1.08, category: 'Currency'),
+        UnitModel(name: 'GBP', symbol: '£', toBaseMultiplier: 1.25, category: 'Currency'),
+        UnitModel(name: 'JPY', symbol: '¥', toBaseMultiplier: 0.0067, category: 'Currency'),
+        UnitModel(name: 'CNY', symbol: '¥', toBaseMultiplier: 0.14, category: 'Currency'),
+        UnitModel(name: 'INR', symbol: '₹', toBaseMultiplier: 0.012, category: 'Currency'),
+        UnitModel(name: 'CAD', symbol: 'C\$', toBaseMultiplier: 0.74, category: 'Currency'),
+        UnitModel(name: 'AUD', symbol: 'A\$', toBaseMultiplier: 0.65, category: 'Currency'),
+      ],
+    ),
     UnitCategory(
       name: 'Temperature',
       icon: Icons.thermostat,
@@ -89,6 +115,8 @@ class ConversionConstants {
         UnitModel(name: 'Hour', symbol: 'h', toBaseMultiplier: 3600.0, category: 'Time'),
         UnitModel(name: 'Day', symbol: 'd', toBaseMultiplier: 86400.0, category: 'Time'),
         UnitModel(name: 'Week', symbol: 'wk', toBaseMultiplier: 604800.0, category: 'Time'),
+        UnitModel(name: 'Month', symbol: 'mo', toBaseMultiplier: 2592000.0, category: 'Time'),
+        UnitModel(name: 'Year', symbol: 'yr', toBaseMultiplier: 31536000.0, category: 'Time'),
       ],
     ),
     UnitCategory(
@@ -100,6 +128,7 @@ class ConversionConstants {
         UnitModel(name: 'Kilometer/Hour', symbol: 'km/h', toBaseMultiplier: 0.2777777778, category: 'Speed'),
         UnitModel(name: 'Mile/Hour', symbol: 'mph', toBaseMultiplier: 0.44704, category: 'Speed'),
         UnitModel(name: 'Knot', symbol: 'kn', toBaseMultiplier: 0.5144444444, category: 'Speed'),
+        UnitModel(name: 'Mach', symbol: 'Ma', toBaseMultiplier: 340.3, category: 'Speed'),
       ],
     ),
 
@@ -113,6 +142,34 @@ class ConversionConstants {
         UnitModel(name: 'Bar', symbol: 'bar', toBaseMultiplier: 100000.0, category: 'Pressure'),
         UnitModel(name: 'PSI', symbol: 'psi', toBaseMultiplier: 6894.75729, category: 'Pressure'),
         UnitModel(name: 'Atmosphere', symbol: 'atm', toBaseMultiplier: 101325.0, category: 'Pressure'),
+        UnitModel(name: 'Torr', symbol: 'Torr', toBaseMultiplier: 133.322, category: 'Pressure'),
+        UnitModel(name: 'mmHg', symbol: 'mmHg', toBaseMultiplier: 133.322, category: 'Pressure'),
+      ],
+    ),
+    UnitCategory(
+      name: 'Force',
+      icon: Icons.dynamic_feed,
+      parentCategory: 'SCIENCE',
+      units: [
+        UnitModel(name: 'Newton', symbol: 'N', toBaseMultiplier: 1.0, category: 'Force', isBase: true),
+        UnitModel(name: 'Kilonewton', symbol: 'kN', toBaseMultiplier: 1000.0, category: 'Force'),
+        UnitModel(name: 'Dyne', symbol: 'dyn', toBaseMultiplier: 1e-5, category: 'Force'),
+        UnitModel(name: 'Kilogram-force', symbol: 'kgf', toBaseMultiplier: 9.80665, category: 'Force'),
+        UnitModel(name: 'Pound-force', symbol: 'lbf', toBaseMultiplier: 4.44822, category: 'Force'),
+      ],
+    ),
+    UnitCategory(
+      name: 'Work',
+      icon: Icons.work_outline,
+      parentCategory: 'SCIENCE',
+      units: [
+        UnitModel(name: 'Joule', symbol: 'J', toBaseMultiplier: 1.0, category: 'Work', isBase: true),
+        UnitModel(name: 'Kilojoule', symbol: 'kJ', toBaseMultiplier: 1000.0, category: 'Work'),
+        UnitModel(name: 'Calorie', symbol: 'cal', toBaseMultiplier: 4.184, category: 'Work'),
+        UnitModel(name: 'Kilocalorie', symbol: 'kcal', toBaseMultiplier: 4184.0, category: 'Work'),
+        UnitModel(name: 'Watt-hour', symbol: 'Wh', toBaseMultiplier: 3600.0, category: 'Work'),
+        UnitModel(name: 'Kilowatt-hour', symbol: 'kWh', toBaseMultiplier: 3600000.0, category: 'Work'),
+        UnitModel(name: 'BTU', symbol: 'BTU', toBaseMultiplier: 1055.06, category: 'Work'),
       ],
     ),
     UnitCategory(
@@ -122,11 +179,28 @@ class ConversionConstants {
       units: [
         UnitModel(name: 'Watt', symbol: 'W', toBaseMultiplier: 1.0, category: 'Power', isBase: true),
         UnitModel(name: 'Kilowatt', symbol: 'kW', toBaseMultiplier: 1000.0, category: 'Power'),
-        UnitModel(name: 'Horsepower', symbol: 'hp', toBaseMultiplier: 745.699872, category: 'Power'),
+        UnitModel(name: 'Megawatt', symbol: 'MW', toBaseMultiplier: 1000000.0, category: 'Power'),
+        UnitModel(name: 'Horsepower', symbol: 'hp', toBaseMultiplier: 745.7, category: 'Power'),
+        UnitModel(name: 'BTU/h', symbol: 'BTU/h', toBaseMultiplier: 0.293071, category: 'Power'),
       ],
     ),
 
     // --- MISC ---
+    UnitCategory(
+      name: 'Cooking',
+      icon: Icons.restaurant,
+      parentCategory: 'MISC',
+      units: [
+        UnitModel(name: 'Milliliter', symbol: 'ml', toBaseMultiplier: 1.0, category: 'Cooking', isBase: true),
+        UnitModel(name: 'Teaspoon', symbol: 'tsp', toBaseMultiplier: 4.92892, category: 'Cooking'),
+        UnitModel(name: 'Tablespoon', symbol: 'tbsp', toBaseMultiplier: 14.7868, category: 'Cooking'),
+        UnitModel(name: 'Cup (US)', symbol: 'cup(US)', toBaseMultiplier: 236.588, category: 'Cooking'),
+        UnitModel(name: 'Cup (Metric)', symbol: 'cup', toBaseMultiplier: 250.0, category: 'Cooking'),
+        UnitModel(name: 'Fluid Ounce', symbol: 'fl oz', toBaseMultiplier: 29.5735, category: 'Cooking'),
+        UnitModel(name: 'Pint (US)', symbol: 'pt(US)', toBaseMultiplier: 473.176, category: 'Cooking'),
+        UnitModel(name: 'Quart (US)', symbol: 'qt', toBaseMultiplier: 946.353, category: 'Cooking'),
+      ],
+    ),
     UnitCategory(
       name: 'Data',
       icon: Icons.storage,
@@ -138,6 +212,28 @@ class ConversionConstants {
         UnitModel(name: 'Megabyte', symbol: 'MB', toBaseMultiplier: 1048576.0, category: 'Data'),
         UnitModel(name: 'Gigabyte', symbol: 'GB', toBaseMultiplier: 1073741824.0, category: 'Data'),
         UnitModel(name: 'Terabyte', symbol: 'TB', toBaseMultiplier: 1099511627776.0, category: 'Data'),
+      ],
+    ),
+    UnitCategory(
+      name: 'Fuel',
+      icon: Icons.local_gas_station,
+      parentCategory: 'MISC',
+      units: [
+        UnitModel(name: 'km/L', symbol: 'km/L', toBaseMultiplier: 1.0, category: 'Fuel', isBase: true),
+        UnitModel(name: 'L/100km', symbol: 'L/100km', toBaseMultiplier: 1.0, category: 'Fuel'),
+        UnitModel(name: 'MPG (US)', symbol: 'mpg(US)', toBaseMultiplier: 0.425144, category: 'Fuel'),
+        UnitModel(name: 'MPG (UK)', symbol: 'mpg(UK)', toBaseMultiplier: 0.354006, category: 'Fuel'),
+      ],
+    ),
+    UnitCategory(
+      name: 'Torque',
+      icon: Icons.settings_input_component,
+      parentCategory: 'MISC',
+      units: [
+        UnitModel(name: 'Newton-meter', symbol: 'N·m', toBaseMultiplier: 1.0, category: 'Torque', isBase: true),
+        UnitModel(name: 'Kilogram-force-meter', symbol: 'kgf·m', toBaseMultiplier: 9.80665, category: 'Torque'),
+        UnitModel(name: 'Pound-foot', symbol: 'lbf·ft', toBaseMultiplier: 1.355818, category: 'Torque'),
+        UnitModel(name: 'Pound-inch', symbol: 'lbf·in', toBaseMultiplier: 0.112985, category: 'Torque'),
       ],
     ),
   ];

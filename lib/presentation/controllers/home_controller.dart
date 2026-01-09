@@ -22,6 +22,7 @@ class HomeController extends GetxController {
 
   void selectCategory(UnitCategory category) {
     selectedCategory.value = category;
+    selectedCategory.refresh(); // Force refresh to update UI observers
   }
 
   void _loadCategories() {
@@ -31,6 +32,7 @@ class HomeController extends GetxController {
     categories.value = list;
     if (list.isNotEmpty) {
       selectedCategory.value = list.first;
+      selectedCategory.refresh();
     }
   }
 }

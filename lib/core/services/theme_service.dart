@@ -1,29 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ThemeService {
+class ThemeService extends GetxService {
+  SharedPreferences? _prefs;
   final _key = 'isDarkMode';
 
-  ThemeMode get theme => _loadThemeFromPrefs() ? ThemeMode.dark : ThemeMode.light;
-
-  bool _loadThemeFromPrefs() {
-    // We'll initialize shared_preferences in main.dart or here
-    return false; // Default to light
+  Future<ThemeService> init() async {
+    _prefs = await SharedPreferences.getInstance();
+    return this;
   }
 
-  void switchTheme() {
-    Get.changeThemeMode(_loadThemeFromPrefs() ? ThemeMode.light : ThemeMode.dark);
-    _saveThemeToPrefs(!_loadThemeFromPrefs());
+  bool isDarkModeNow() {
+    return _prefs?.getBool(_key) ?? false;
   }
 
-  void _saveThemeToPrefs(bool isDarkMode) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(_key, isDarkMode);
-  }
-
-  Future<bool> isDarkMode() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_key) ?? false;
+  void saveTheme(bool isDarkMode) {
+    _prefs?.setBool(_key, isDarkMode);
   }
 }

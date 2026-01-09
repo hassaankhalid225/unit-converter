@@ -13,4 +13,15 @@ class UnitCategory {
     required this.units,
     required this.parentCategory,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UnitCategory &&
+          runtimeType == other.runtimeType &&
+          name == other.name &&
+          parentCategory == other.parentCategory;
+
+  @override
+  int get hashCode => name.hashCode ^ parentCategory.hashCode;
 }

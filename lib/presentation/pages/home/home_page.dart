@@ -187,77 +187,67 @@ class ConversionView extends StatelessWidget {
     return Obx(() {
       if (controller.category == null) return const Center(child: CircularProgressIndicator());
       
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
+      return SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            _InputCard(key: ValueKey('input_${controller.category!.name}'), controller: controller),
+            
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                radius: 20,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => controller.swapUnits(),
+                  icon: Icon(Icons.swap_vert, size: 24, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                ),
+              ),
+            ),
+
+            _OutputCard(key: ValueKey('output_${controller.category!.name}'), controller: controller),
+            
+            const SizedBox(height: 16),
+            
+            const Row(
               children: [
-                _InputCard(key: ValueKey('input_${controller.category!.name}'), controller: controller),
-                
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                    radius: 20,
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () => controller.swapUnits(),
-                      icon: Icon(Icons.swap_vert, size: 24, color: Theme.of(context).colorScheme.onPrimaryContainer),
-                    ),
-                  ),
-                ),
-
-                _OutputCard(key: ValueKey('output_${controller.category!.name}'), controller: controller),
-                
-                const SizedBox(height: 16),
-                
-                const Row(
-                  children: [
-                    Icon(Icons.grid_view_rounded, size: 18),
-                    SizedBox(width: 8),
-                    Text('ALL CONVERSIONS', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.2)),
-                  ],
-                ),
-                const SizedBox(height: 8),
-
-                // Results list with constrained height
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: constraints.maxHeight * 0.5,
-                    minHeight: 200,
-                  ),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: EdgeInsets.zero,
-                    itemCount: controller.allResults.length,
-                    separatorBuilder: (context, index) => const Divider(height: 1),
-                    itemBuilder: (context, index) {
-                      final result = controller.allResults[index];
-                      bool isTarget = result['symbol'] == controller.selectedToUnit.value?.symbol;
-                      
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                        selected: isTarget,
-                        selectedTileColor: Theme.of(context).colorScheme.primary.withAlpha(20),
-                        onTap: () {
-                          final unit = controller.category?.units.firstWhere((u) => u.symbol == result['symbol']);
-                          if (unit != null) controller.changeToUnit(unit);
-                        },
-                        title: Text(result['value']!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                        trailing: Text(result['symbol']!, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey)),
-                        subtitle: Text(result['name']!, style: const TextStyle(fontSize: 11)),
-                      );
-                    },
-                  ),
-                ),
-                // Extra padding for keyboard
-                SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
+                Icon(Icons.grid_view_rounded, size: 18),
+                SizedBox(width: 8),
+                Text('ALL CONVERSIONS', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, letterSpacing: 1.2)),
               ],
             ),
-          );
-        },
+            const SizedBox(height: 8),
+
+            // Results list - shows all conversions
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.zero,
+              itemCount: controller.allResults.length,
+              separatorBuilder: (context, index) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final result = controller.allResults[index];
+                bool isTarget = result['symbol'] == controller.selectedToUnit.value?.symbol;
+                
+                return ListTile(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
+                  selected: isTarget,
+                  selectedTileColor: Theme.of(context).colorScheme.primary.withAlpha(20),
+                  onTap: () {
+                    final unit = controller.category?.units.firstWhere((u) => u.symbol == result['symbol']);
+                    if (unit != null) controller.changeToUnit(unit);
+                  },
+                  title: Text(result['value']!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  trailing: Text(result['symbol']!, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Colors.grey)),
+                  subtitle: Text(result['name']!, style: const TextStyle(fontSize: 11)),
+                );
+              },
+            ),
+            // Extra padding for keyboard
+            SizedBox(height: MediaQuery.of(context).viewInsets.bottom + 16),
+          ],
+        ),
       );
     });
   }

@@ -14,5 +14,6 @@ class ThemeController extends GetxController {
   void toggleTheme() {
     isDarkMode.value = !isDarkMode.value;
     _themeService.saveTheme(isDarkMode.value);
+    update(); // Force GetBuilder to rebuild
   }
 }

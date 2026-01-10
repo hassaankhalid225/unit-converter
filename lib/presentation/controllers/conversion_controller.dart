@@ -3,6 +3,7 @@ import 'package:unit_converter/data/models/unit_model.dart';
 import 'package:unit_converter/core/utils/conversion_helper.dart';
 import 'package:unit_converter/data/models/unit_category_model.dart';
 import 'package:unit_converter/core/services/database_service.dart';
+import 'dart:async';
 
 class ConversionController extends GetxController {
   final DatabaseService _dbService = Get.find<DatabaseService>();
@@ -16,6 +17,16 @@ class ConversionController extends GetxController {
   final conversionResult = '1'.obs;
   final allResults = <Map<String, String>>[].obs;
 
+  Timer? _debounceTimer;
+  Timer? _saveTimer;
+
+  @override
+  void onClose() {
+    _debounceTimer?.cancel();
+    _saveTimer?.cancel();
+    super.onClose();
+  }
+
   void setCategory(UnitCategory cat) {
     _category.value = cat;
     selectedFromUnit.value = cat.units.firstWhere((u) => u.isBase, orElse: () => cat.units.first);
@@ -25,7 +36,12 @@ class ConversionController extends GetxController {
 
   void updateInput(String value) {
     inputValue.value = value;
-    calculateAll();
+    
+    // Debounce calculations for better performance
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 300), () {
+      calculateAll();
+    });
   }
 
   void changeFromUnit(UnitModel unit) {
@@ -48,7 +64,7 @@ class ConversionController extends GetxController {
   void calculateAll() {
     if (category == null || selectedFromUnit.value == null || selectedToUnit.value == null) return;
     
-    if (inputValue.isEmpty) {
+    if (inputValue.isEmpty || inputValue.value.trim().isEmpty) {
       allResults.clear();
       conversionResult.value = '0';
       return;
@@ -56,7 +72,7 @@ class ConversionController extends GetxController {
 
     double? val = double.tryParse(inputValue.value);
     if (val == null) {
-      conversionResult.value = 'Error';
+      conversionResult.value = 'Invalid';
       return;
     }
 
@@ -64,7 +80,7 @@ class ConversionController extends GetxController {
     double mainResult = ConversionHelper.convert(val, selectedFromUnit.value!, selectedToUnit.value!);
     conversionResult.value = ConversionHelper.formatResult(mainResult);
 
-    // All unit conversions
+    // All unit conversions - optimized to only calculate when needed
     allResults.value = category!.units.map((unit) {
       double result = ConversionHelper.convert(val, selectedFromUnit.value!, unit);
       return {
@@ -74,8 +90,11 @@ class ConversionController extends GetxController {
       };
     }).toList();
 
-    // Auto-save to history (debounced or simple)
-    _saveHistoryEntry(val, mainResult);
+    // Debounced auto-save to history
+    _saveTimer?.cancel();
+    _saveTimer = Timer(const Duration(seconds: 1), () {
+      _saveHistoryEntry(val, mainResult);
+    });
   }
 
   void _saveHistoryEntry(double fromVal, double toVal) {
@@ -90,6 +109,7 @@ class ConversionController extends GetxController {
       'timestamp': DateTime.now().millisecondsSinceEpoch,
     };
     
+    // Save asynchronously without blocking UI
     _dbService.saveHistory(entry);
   }
 }

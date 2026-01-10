@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart'; // Added for WidgetsFlutterBinding, runApp, StatelessWidget, Widget, BuildContext, GetMaterialApp
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unit_converter/app/bindings/initial_binding.dart';
 import 'package:unit_converter/app/routes/app_pages.dart';
@@ -18,26 +18,28 @@ void main() async {
   
   // Pre-initialize controller for reactive theme
   Get.put(ThemeController());
-  
+
   runApp(const MyApp());
 }
   
-class MyApp extends StatelessWidget { 
+class MyApp extends StatelessWidget {  
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.find<ThemeController>();
-    
-    return Obx(() => GetMaterialApp(
-      title: 'Unit Converter',
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: themeController.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
-      initialBinding: InitialBinding(),
-      initialRoute: AppRoutes.home,
-      getPages: AppPages.routes,
-    ));
+    return GetBuilder<ThemeController>(
+      builder: (controller) {
+        return GetMaterialApp(
+          title: 'Unit Converter',
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          themeMode: controller.isDarkMode.value ? ThemeMode.dark : ThemeMode.light,
+          initialBinding: InitialBinding(),
+          initialRoute: AppRoutes.home,
+          getPages: AppPages.routes,
+        );
+      },
+    );
   }
 }
